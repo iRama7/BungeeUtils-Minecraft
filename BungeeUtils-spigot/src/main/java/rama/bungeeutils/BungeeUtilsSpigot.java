@@ -87,6 +87,9 @@ public final class BungeeUtilsSpigot extends JavaPlugin implements PluginMessage
 
             FileConfiguration Database = this.getDatabase();
             Player player = Bukkit.getServer().getPlayer(uuid);
+            if(player == null){
+                return;
+            }
             UUID playerUUID = player.getUniqueId();
             String playerUUIDString = playerUUID.toString();
 
@@ -146,7 +149,9 @@ public final class BungeeUtilsSpigot extends JavaPlugin implements PluginMessage
 
             FileConfiguration Database = this.getDatabase();
             Player player = Bukkit.getServer().getPlayer(uuid);
-            String playerName = player.getDisplayName();
+            if(player == null){
+                return;
+            }
             UUID playerUUID = player.getUniqueId();
             String playerUUIDString = playerUUID.toString();
 
