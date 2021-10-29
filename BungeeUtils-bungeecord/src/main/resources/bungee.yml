@@ -1,0 +1,4 @@
+name: BungeeUtils
+version: '${project.version}'
+main: rama.bungeeutils.BungeeUtilsBungeeCord
+authors: [ Rama ]

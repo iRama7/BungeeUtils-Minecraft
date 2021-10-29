@@ -1,0 +1,23 @@
+#Bienvenido a la configuración de BungeeUtils por ImRama
+config:
+
+  server: #Set to minas OR villa
+
+  #Comandos al ejecutar segundos después de transferir el servidor del jugador (/minas - /nether - /end)
+  minas_command: "warp minas"
+  nether_command: "warp nether"
+  end_command: "warp end"
+  villa_command: "spawn"
+  parcelas_command: "p h"
+
+  #Guardar el mundo de desconexión del jugador para no reiniciar su ubicación
+  save_logout_world: true
+
+lang:
+  minas_lang: "&7Has sido teletransportado al &2Overworld &7correctamente."
+  nether_lang: "&7Has sido teletransportado al &cNether &7correctamente."
+  end_lang: "&7Has sido teletransportado al &eEnd &7correctamente."
+  villa_lang: "&7Has sido teletransportado al &6Spawn &7correctamente."
+  parcelas_lang: "&7Has sido teletransportado a las &3Parcelas &7correctamente"
+  already_on_minas: "&eYa te encuentras en &cminas&e! &ePara ir a la villa usa &c/villa &eo &c/parcelas&e."
+  already_on_villa: "&eYa te encuentras en la &cvilla&e! &ePara ir a minas puedes usar &c/minas&e,&c/nether &eo &c/dragon&e!"

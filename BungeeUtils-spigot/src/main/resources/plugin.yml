@@ -1,0 +1,9 @@
+name: BungeeUtils
+version: '${project.version}'
+main: rama.bungeeutils.BungeeUtilsSpigot
+api-version: 1.17
+authors: [ Rama ]
+description: Plugin for Bungee utilities - By ImRama
+commands:
+  bungeeutils:
+  minas:
