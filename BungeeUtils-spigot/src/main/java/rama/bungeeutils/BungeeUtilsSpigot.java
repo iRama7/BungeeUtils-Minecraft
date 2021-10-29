@@ -87,7 +87,6 @@ public final class BungeeUtilsSpigot extends JavaPlugin implements PluginMessage
 
             FileConfiguration Database = this.getDatabase();
             Player player = Bukkit.getServer().getPlayer(uuid);
-            String playerName = player.getDisplayName();
             UUID playerUUID = player.getUniqueId();
             String playerUUIDString = playerUUID.toString();
 
@@ -112,7 +111,7 @@ public final class BungeeUtilsSpigot extends JavaPlugin implements PluginMessage
                             player.performCommand(minas_command);
                             player.sendMessage(minas_lang);
                         } else {
-                            getLogger().info(ChatColor.translateAlternateColorCodes('&', "&e[Debug] &7" + playerName + " &7no fue teletransportado ya que ya estaba en ese mundo (world) al desconectarse."));
+                            getLogger().info(ChatColor.translateAlternateColorCodes('&', "&e[Debug] &7" + uuid + " &7no fue teletransportado ya que ya estaba en ese mundo (world) al desconectarse."));
                         }
                     }
                 }, 5);
@@ -124,7 +123,7 @@ public final class BungeeUtilsSpigot extends JavaPlugin implements PluginMessage
                             player.performCommand(nether_command);
                             player.sendMessage(nether_lang);
                         } else {
-                            getLogger().info(ChatColor.translateAlternateColorCodes('&', "&e[Debug] &7" + playerName + " &7no fue teletransportado ya que ya estaba en ese mundo (world_nether) al desconectarse."));
+                            getLogger().info(ChatColor.translateAlternateColorCodes('&', "&e[Debug] &7" + uuid + " &7no fue teletransportado ya que ya estaba en ese mundo (world_nether) al desconectarse."));
                         }
                     }
                 }, 5);
@@ -136,7 +135,7 @@ public final class BungeeUtilsSpigot extends JavaPlugin implements PluginMessage
                             player.performCommand(end_command);
                             player.sendMessage(end_lang);
                         } else {
-                            getLogger().info(ChatColor.translateAlternateColorCodes('&', "&e[Debug] &7" + playerName + " &7no fue teletransportado ya que ya estaba en ese mundo (world_the_end) al desconectarse."));
+                            getLogger().info(ChatColor.translateAlternateColorCodes('&', "&e[Debug] &7" + uuid + " &7no fue teletransportado ya que ya estaba en ese mundo (world_the_end) al desconectarse."));
                         }
                     }
                 }, 5);
@@ -168,7 +167,7 @@ public final class BungeeUtilsSpigot extends JavaPlugin implements PluginMessage
                             player.performCommand(villa_command);
                             player.sendMessage(villa_lang);
                         } else {
-                            getLogger().info(ChatColor.translateAlternateColorCodes('&', "&e[Debug] &7" + playerName + " &7no fue teletransportado ya que ya estaba en ese mundo (Spawn) al desconectarse."));
+                            getLogger().info(ChatColor.translateAlternateColorCodes('&', "&e[Debug] &7" + uuid + " &7no fue teletransportado ya que ya estaba en ese mundo (Spawn) al desconectarse."));
                         }
                     }
                 }, 5);
@@ -180,7 +179,7 @@ public final class BungeeUtilsSpigot extends JavaPlugin implements PluginMessage
                             player.performCommand(parcelas_command);
                             player.sendMessage(parcelas_lang);
                         } else {
-                            getLogger().info(ChatColor.translateAlternateColorCodes('&', "&e[Debug] &7" + playerName + " &7no fue teletransportado ya que ya estaba en ese mundo (mundo_parcelas) al desconectarse."));
+                            getLogger().info(ChatColor.translateAlternateColorCodes('&', "&e[Debug] &7" + uuid + " &7no fue teletransportado ya que ya estaba en ese mundo (mundo_parcelas) al desconectarse."));
                         }
                     }
                 }, 5);
