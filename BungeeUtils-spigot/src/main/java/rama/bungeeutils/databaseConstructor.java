@@ -8,7 +8,6 @@ import org.bukkit.event.player.PlayerJoinEvent;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Path;
 import java.util.UUID;
 
 public class databaseConstructor implements Listener {

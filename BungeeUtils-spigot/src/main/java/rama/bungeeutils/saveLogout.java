@@ -1,6 +1,5 @@
 package rama.bungeeutils;
 
-import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
