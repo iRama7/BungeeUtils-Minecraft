@@ -19,5 +19,3 @@ lang:
   end_lang: "&7Has sido teletransportado al &eEnd &7correctamente."
   villa_lang: "&7Has sido teletransportado al &6Spawn &7correctamente."
   parcelas_lang: "&7Has sido teletransportado a las &3Parcelas &7correctamente"
-  already_on_minas: "&eYa te encuentras en &cminas&e! &ePara ir a la villa usa &c/villa &eo &c/parcelas&e."
-  already_on_villa: "&eYa te encuentras en la &cvilla&e! &ePara ir a minas puedes usar &c/minas&e,&c/nether &eo &c/dragon&e!"

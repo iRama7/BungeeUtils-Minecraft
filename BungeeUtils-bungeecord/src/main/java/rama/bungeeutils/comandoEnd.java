@@ -10,14 +10,10 @@ import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.connection.Server;
 import net.md_5.bungee.api.plugin.Command;
 
-import java.io.ByteArrayOutputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
 import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-import static rama.bungeeutils.BungeeUtilsBungeeCord.getPlugin;
 import static rama.bungeeutils.BungeeUtilsBungeeCord.plugin;
 
 public class comandoEnd extends Command {
@@ -34,7 +30,7 @@ public class comandoEnd extends Command {
             String playerName = ((ProxiedPlayer) sender).getDisplayName();
 
             String data1 = "end";
-            String data2 = "sameServer";
+            String data2 = "sameServer_to_end";
             String channel = "minasChannel";
             Server playerServer = player.getServer();
             if(playerServer.getInfo().getName().equalsIgnoreCase("minas")){

@@ -2,23 +2,23 @@ package rama.bungeeutils;
 
 import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
-import net.md_5.bungee.api.*;
+import net.md_5.bungee.api.ChatColor;
+import net.md_5.bungee.api.CommandSender;
+import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.config.ServerInfo;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.connection.Server;
 import net.md_5.bungee.api.plugin.Command;
 
-import java.net.Socket;
 import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import static rama.bungeeutils.BungeeUtilsBungeeCord.plugin;
 
-public class comandoNether extends Command {
-
-    public comandoNether(BungeeUtilsBungeeCord bungeeUtilsBungeeCord){
-        super("nether");
+public class comandoPH extends Command {
+    public comandoPH(BungeeUtilsBungeeCord bungeeUtilsBungeeCord) {
+        super("p h");
     }
 
     @Override
@@ -28,20 +28,20 @@ public class comandoNether extends Command {
 
             String playerName = ((ProxiedPlayer) sender).getDisplayName();
 
-            String data1 = "nether";
-            String data2 = "sameServer_to_nether";
-            String channel = "minasChannel";
+            String data1 = "parcelas";
+            String data2 = "sameServer2_to_parcelas";
+            String channel = "survivalChannel";
             Server playerServer = player.getServer();
-            if(playerServer.getInfo().getName().equalsIgnoreCase("minas")){
+            if(playerServer.getInfo().getName().equalsIgnoreCase("villa")){
                 sendCustomData(data2, playerName, channel);
             }else {
                 sendCustomData(data1, playerName, channel);
-                player.connect(ProxyServer.getInstance().getServerInfo("minas"));
+                player.connect(ProxyServer.getInstance().getServerInfo("villa"));
             }
-
 
         }
     }
+
     public void sendCustomData(String data1, String playerName, String channel){
         Collection<ProxiedPlayer> networkPlayers = ProxyServer.getInstance().getPlayers();
         if ( networkPlayers == null || networkPlayers.isEmpty() )
@@ -61,11 +61,8 @@ public class comandoNether extends Command {
                     ServerInfo server = ProxyServer.getInstance().getServerInfo(name);
                     server.sendData("my:channel", out.toByteArray());
                 }
-                plugin.getProxy().getLogger().info(ChatColor.YELLOW+"[BungeeUtils] está enviando al jugador ("+ChatColor.RED+ playerName +ChatColor.YELLOW+") al servidor Minas para luego transportarlo a (world_nether)");
+                plugin.getProxy().getLogger().info(ChatColor.YELLOW+"[BungeeUtils] está enviando al jugador ("+ChatColor.RED+ playerName +ChatColor.YELLOW+") al servidor Villa para luego transportarlo a (mundo_parcelas)");
             }
         }, 750, TimeUnit.MILLISECONDS);
     }
-
-
 }
-

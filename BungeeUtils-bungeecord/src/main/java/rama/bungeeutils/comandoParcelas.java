@@ -10,9 +10,6 @@ import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.connection.Server;
 import net.md_5.bungee.api.plugin.Command;
 
-import java.io.ByteArrayOutputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
 import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -32,7 +29,7 @@ public class comandoParcelas extends Command {
             String playerName = ((ProxiedPlayer) sender).getDisplayName();
 
             String data1 = "parcelas";
-            String data2 = "sameServer2";
+            String data2 = "sameServer2_to_parcelas";
             String channel = "survivalChannel";
             Server playerServer = player.getServer();
             if(playerServer.getInfo().getName().equalsIgnoreCase("villa")){

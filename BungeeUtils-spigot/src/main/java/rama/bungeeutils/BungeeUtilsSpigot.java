@@ -74,8 +74,6 @@ public final class BungeeUtilsSpigot extends JavaPlugin implements PluginMessage
         String villa_command = ChatColor.translateAlternateColorCodes('&', config.getString("config.villa_command"));
         String parcelas_command = ChatColor.translateAlternateColorCodes('&', config.getString("config.parcelas_command"));
 
-        String alreadyOnMinas = ChatColor.translateAlternateColorCodes('&', config.getString("lang.already_on_minas"));
-        String alreadyOnVilla = ChatColor.translateAlternateColorCodes('&', config.getString("lang.already_on_villa"));
 
         if (!channel.equalsIgnoreCase("my:channel")) {
             this.getLogger().info("Debug");
@@ -97,9 +95,16 @@ public final class BungeeUtilsSpigot extends JavaPlugin implements PluginMessage
             Boolean isInWorld_nether = Database.getBoolean(playerUUIDString + ".world_nether");
             Boolean isInWorld_the_end = Database.getBoolean(playerUUIDString + ".world_the_end");
 
-            if (data1.equalsIgnoreCase("sameServer")) {
-                player.sendMessage(alreadyOnMinas);
-            } else if (data1.equalsIgnoreCase("world")) {
+            if (data1.equalsIgnoreCase("sameServer_to_world")) {
+                player.performCommand(minas_command);
+                player.sendMessage(minas_lang);
+            }else if (data1.equalsIgnoreCase("sameServer_to_nether")) {
+                player.performCommand(nether_command);
+                player.sendMessage(nether_lang);
+            }else if (data1.equalsIgnoreCase("sameServer_to_end")) {
+                player.performCommand(end_command);
+                player.sendMessage(end_lang);
+            }else if (data1.equalsIgnoreCase("world")) {
                 Bukkit.getScheduler().runTaskLater(this, new Runnable() {
                     @Override
                     public void run() {
@@ -149,8 +154,12 @@ public final class BungeeUtilsSpigot extends JavaPlugin implements PluginMessage
             Boolean isInVillage = Database.getBoolean(playerUUIDString + ".spawn");
             Boolean isInParcelas = Database.getBoolean(playerUUIDString + ".mundo_parcelas");
 
-            if (data1.equalsIgnoreCase("sameServer2")) {
-                player.sendMessage(alreadyOnVilla);
+            if (data1.equalsIgnoreCase("sameServer2_to_villa")) {
+                player.performCommand(villa_command);
+                player.sendMessage(villa_lang);
+            }else if(data1.equalsIgnoreCase("sameServer2_to_parcelas")){
+                player.performCommand(parcelas_command);
+                player.sendMessage(parcelas_lang);
             }else if(data1.equalsIgnoreCase("villa")) {
                 Bukkit.getScheduler().runTaskLater(this, new Runnable() {
                     @Override
