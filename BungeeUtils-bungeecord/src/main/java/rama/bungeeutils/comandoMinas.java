@@ -35,27 +35,20 @@ public class comandoMinas extends Command {
             String playerName = ((ProxiedPlayer) sender).getDisplayName();
 
             ByteArrayOutputStream bb = new ByteArrayOutputStream();
-            DataOutputStream outt = new DataOutputStream(bb);
-            try{
-                outt.writeUTF(((ProxiedPlayer) sender).getDisplayName());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
             String data1 = "world";
             String data2 = "sameServer";
-            String uuid = playerName;
             String channel = "minasChannel";
             Server playerServer = player.getServer();
             if(playerServer.getInfo().getName().equalsIgnoreCase("minas")){
-                sendCustomData(data2,uuid, channel);
+                sendCustomData(data2,playerName, channel);
             }else {
-                sendCustomData(data1,uuid, channel);
+                sendCustomData(data1,playerName, channel);
                 player.connect(ProxyServer.getInstance().getServerInfo("minas"));
             }
 
         }
     }
-    public void sendCustomData(String data1,String uuid, String channel){
+    public void sendCustomData(String data1,String playerName, String channel){
         Collection<ProxiedPlayer> networkPlayers = ProxyServer.getInstance().getPlayers();
         if ( networkPlayers == null || networkPlayers.isEmpty() )
         {
@@ -64,7 +57,7 @@ public class comandoMinas extends Command {
         ByteArrayDataOutput out = ByteStreams.newDataOutput();
         out.writeUTF(channel);
         out.writeUTF(data1);
-        out.writeUTF(uuid);
+        out.writeUTF(playerName);
 
         plugin.getProxy().getScheduler().schedule(plugin, new Runnable() {
             @Override
@@ -75,7 +68,7 @@ public class comandoMinas extends Command {
                     ServerInfo server = ProxyServer.getInstance().getServerInfo(name);
                     server.sendData("my:channel", out.toByteArray());
                 }
-                plugin.getProxy().getLogger().info(ChatColor.YELLOW+"[BungeeUtils] está enviando al jugador ("+ChatColor.RED+ uuid +ChatColor.YELLOW+") al servidor Minas para luego transportarlo a (world)");
+                plugin.getProxy().getLogger().info(ChatColor.YELLOW+"[BungeeUtils] está enviando al jugador ("+ChatColor.RED+ playerName +ChatColor.YELLOW+") al servidor Minas para luego transportarlo a (world)");
             }
         }, 750, TimeUnit.MILLISECONDS);
     }
