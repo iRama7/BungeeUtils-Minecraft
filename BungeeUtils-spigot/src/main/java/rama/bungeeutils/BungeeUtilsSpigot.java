@@ -98,20 +98,20 @@ public final class BungeeUtilsSpigot extends JavaPlugin implements PluginMessage
             Boolean isInWorld_the_end = Database.getBoolean(playerUUIDString + ".world_the_end");
 
             if (data1.equalsIgnoreCase("sameServer_to_world")) {
-                player.performCommand(minas_command);
+                Bukkit.getServer().dispatchCommand(getServer().getConsoleSender(), minas_command.replaceAll("%player%", player.getName()));
                 player.sendMessage(minas_lang);
             }else if (data1.equalsIgnoreCase("sameServer_to_nether")) {
-                player.performCommand(nether_command);
+                Bukkit.getServer().dispatchCommand(getServer().getConsoleSender(), nether_command.replaceAll("%player%", player.getName()));
                 player.sendMessage(nether_lang);
             }else if (data1.equalsIgnoreCase("sameServer_to_end")) {
-                player.performCommand(end_command);
+                Bukkit.getServer().dispatchCommand(getServer().getConsoleSender(), end_command.replaceAll("%player%", player.getName()));
                 player.sendMessage(end_lang);
             }else if (data1.equalsIgnoreCase("world")) {
                 Bukkit.getScheduler().runTaskLater(this, new Runnable() {
                     @Override
                     public void run() {
                         if (!isInWorld) {
-                            player.performCommand(minas_command);
+                            Bukkit.getServer().dispatchCommand(getServer().getConsoleSender(), minas_command.replaceAll("%player%", player.getName()));
                             player.sendMessage(minas_lang);
                         } else {
                             getLogger().info(ChatColor.translateAlternateColorCodes('&', "&e[Debug] &7" + uuid + " &7no fue teletransportado ya que ya estaba en ese mundo (world) al desconectarse."));
@@ -123,7 +123,7 @@ public final class BungeeUtilsSpigot extends JavaPlugin implements PluginMessage
                     @Override
                     public void run() {
                         if (!isInWorld_nether) {
-                            player.performCommand(nether_command);
+                            Bukkit.getServer().dispatchCommand(getServer().getConsoleSender(), nether_command.replaceAll("%player%", player.getName()));
                             player.sendMessage(nether_lang);
                         } else {
                             getLogger().info(ChatColor.translateAlternateColorCodes('&', "&e[Debug] &7" + uuid + " &7no fue teletransportado ya que ya estaba en ese mundo (world_nether) al desconectarse."));
@@ -135,7 +135,7 @@ public final class BungeeUtilsSpigot extends JavaPlugin implements PluginMessage
                     @Override
                     public void run() {
                         if (!isInWorld_the_end) {
-                            player.performCommand(end_command);
+                            Bukkit.getServer().dispatchCommand(getServer().getConsoleSender(), end_command.replaceAll("%player%", player.getName()));
                             player.sendMessage(end_lang);
                         } else {
                             getLogger().info(ChatColor.translateAlternateColorCodes('&', "&e[Debug] &7" + uuid + " &7no fue teletransportado ya que ya estaba en ese mundo (world_the_end) al desconectarse."));
@@ -159,7 +159,7 @@ public final class BungeeUtilsSpigot extends JavaPlugin implements PluginMessage
             Boolean isInParcelas = Database.getBoolean(playerUUIDString + ".mundo_parcelas");
 
             if (data1.equalsIgnoreCase("sameServer2_to_villa")) {
-                player.performCommand(villa_command);
+                Bukkit.getServer().dispatchCommand(getServer().getConsoleSender(), villa_command.replaceAll("%player%", player.getName()));
                 player.sendMessage(villa_lang);
             }else if(data1.equalsIgnoreCase("sameServer2_to_parcelas")){
                 player.performCommand(parcelas_command);
@@ -169,7 +169,7 @@ public final class BungeeUtilsSpigot extends JavaPlugin implements PluginMessage
                     @Override
                     public void run() {
                         if (!isInVillage) {
-                            player.performCommand(villa_command);
+                            Bukkit.getServer().dispatchCommand(getServer().getConsoleSender(), villa_command.replaceAll("%player%", player.getName()));
                             player.sendMessage(villa_lang);
                         } else {
                             getLogger().info(ChatColor.translateAlternateColorCodes('&', "&e[Debug] &7" + uuid + " &7no fue teletransportado ya que ya estaba en ese mundo (Spawn) al desconectarse."));

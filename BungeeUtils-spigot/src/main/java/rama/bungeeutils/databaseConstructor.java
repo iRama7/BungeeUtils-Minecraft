@@ -1,5 +1,6 @@
 package rama.bungeeutils;
 
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -35,6 +36,7 @@ public class databaseConstructor implements Listener {
 
                 Boolean playerPathExists = Database.isSet(playerUUIDString);
                 if (!playerPathExists) {
+                    Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), "warp minas "+player.getName());
                     Database.set(playerUUIDString + ".world", false);
                     Database.set(playerUUIDString + ".world_nether", false);
                     Database.set(playerUUIDString + ".world_the_end", false);

@@ -4,10 +4,10 @@ config:
   server: #Set to minas OR villa
 
   #Comandos al ejecutar segundos después de transferir el servidor del jugador (/minas - /nether - /end)
-  minas_command: "warp minas"
-  nether_command: "warp nether"
-  end_command: "warp end"
-  villa_command: "spawn"
+  minas_command: "warp minas %player%"
+  nether_command: "warp nether %player%"
+  end_command: "warp end %player%"
+  villa_command: "spawn %player%"
   parcelas_command: "p h"
 
   #Guardar el mundo de desconexión del jugador para no reiniciar su ubicación
