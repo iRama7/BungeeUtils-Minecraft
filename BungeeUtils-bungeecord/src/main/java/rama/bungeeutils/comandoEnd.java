@@ -8,15 +8,21 @@ import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.config.ServerInfo;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.connection.Server;
+import net.md_5.bungee.api.event.PluginMessageEvent;
 import net.md_5.bungee.api.plugin.Command;
+import net.md_5.bungee.api.plugin.Listener;
+import net.md_5.bungee.event.EventHandler;
 
+import java.io.ByteArrayInputStream;
+import java.io.DataInputStream;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import static rama.bungeeutils.BungeeUtilsBungeeCord.plugin;
 
-public class comandoEnd extends Command {
+public class comandoEnd extends Command implements Listener {
 
     public comandoEnd(BungeeUtilsBungeeCord bungeeUtilsBungeeCord){
         super("dragon");
@@ -38,6 +44,7 @@ public class comandoEnd extends Command {
             }else {
                 sendCustomData(data1, playerName, channel);
                 player.connect(ProxyServer.getInstance().getServerInfo("minas"));
+
             }
 
         }
@@ -64,6 +71,31 @@ public class comandoEnd extends Command {
                 plugin.getProxy().getLogger().info(ChatColor.YELLOW+"[BungeeUtils] está enviando al jugador ("+ChatColor.RED+ playerName +ChatColor.YELLOW+") al servidor Minas para luego transportarlo a (world_the_end)");
             }
         }, 750, TimeUnit.MILLISECONDS);
+    }
+
+    @EventHandler
+    public void onPluginMessage(PluginMessageEvent e) {
+
+        if (e.getReceiver() instanceof ProxiedPlayer) {
+            ProxiedPlayer receiver = (ProxiedPlayer) e.getReceiver();
+
+            if (e.getTag().equalsIgnoreCase("BungeeCord")) {
+                DataInputStream in = new DataInputStream(new ByteArrayInputStream((e.getData())));
+                try {
+                    String channel = in.readUTF();
+                    String data = in.readUTF();
+                    String[] args = new String[0];
+                    if (channel.equalsIgnoreCase("spigotChannel")) {
+                        if (data.equalsIgnoreCase("dragon")) {
+                            execute(receiver, args);
+                        }
+                    }
+
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
+            }
+        }
     }
 
 

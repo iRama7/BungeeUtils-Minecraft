@@ -31,12 +31,14 @@ public final class BungeeUtilsSpigot extends JavaPlugin implements PluginMessage
             return;
         }
         getServer().getMessenger().registerIncomingPluginChannel( this, "my:channel", this);
+        getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
         getLogger().info( "enabled successfully." );
         registrarConfig();
         registrarComandos();
         createDatabase();
         registrarEventos();
         registrarErrores();
+
 
 
     }
@@ -202,6 +204,7 @@ public final class BungeeUtilsSpigot extends JavaPlugin implements PluginMessage
 
     public void registrarComandos(){
         this.getCommand("bungeeutils").setExecutor(new reloadCommand(this));
+        this.getCommand("bungee-utils").setExecutor(new bukkitToBungee(this));
     }
     public void registrarEventos(){
         PluginManager pm = getServer().getPluginManager();

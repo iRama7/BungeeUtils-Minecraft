@@ -6,4 +6,4 @@ authors: [ Rama ]
 description: Plugin for Bungee utilities - By ImRama
 commands:
   bungeeutils:
-  minas:
+  bungee-utils:
