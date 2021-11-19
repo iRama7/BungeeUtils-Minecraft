@@ -26,7 +26,7 @@ import static rama.bungeeutils.BungeeUtilsBungeeCord.plugin;
 public class comandoMinas extends Command implements Listener {
 
     public comandoMinas(BungeeUtilsBungeeCord bungeeUtilsBungeeCord){
-        super("minas");
+        super("minas", "comando.minas");
     }
 
     @Override

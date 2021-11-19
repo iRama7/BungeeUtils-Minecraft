@@ -25,7 +25,7 @@ import static rama.bungeeutils.BungeeUtilsBungeeCord.plugin;
 public class comandoEnd extends Command implements Listener {
 
     public comandoEnd(BungeeUtilsBungeeCord bungeeUtilsBungeeCord){
-        super("dragon");
+        super("dragon", "comando.dragon");
     }
 
     @Override

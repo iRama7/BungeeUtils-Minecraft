@@ -18,7 +18,7 @@ import static rama.bungeeutils.BungeeUtilsBungeeCord.plugin;
 
 public class comandoParcelas extends Command {
     public comandoParcelas(BungeeUtilsBungeeCord bungeeUtilsBungeeCord) {
-        super("parcelas");
+        super("parcelas", "comando.parcelas", "p h");
     }
 
     @Override

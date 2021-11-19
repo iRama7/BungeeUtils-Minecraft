@@ -24,7 +24,7 @@ import static rama.bungeeutils.BungeeUtilsBungeeCord.plugin;
 public class comandoNether extends Command implements Listener {
 
     public comandoNether(BungeeUtilsBungeeCord bungeeUtilsBungeeCord){
-        super("nether");
+        super("nether", "comando.nether");
     }
 
     @Override
