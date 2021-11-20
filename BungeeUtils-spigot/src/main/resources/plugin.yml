@@ -4,6 +4,7 @@ main: rama.bungeeutils.BungeeUtilsSpigot
 api-version: 1.17
 authors: [ Rama ]
 description: Plugin for Bungee utilities - By ImRama
+softdepend: [AuthMe]
 commands:
   bungeeutils:
   bungee-utils:

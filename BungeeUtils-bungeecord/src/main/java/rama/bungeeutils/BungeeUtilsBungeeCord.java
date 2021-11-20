@@ -2,6 +2,15 @@ package rama.bungeeutils;
 
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.plugin.Plugin;
+import net.md_5.bungee.config.Configuration;
+import net.md_5.bungee.config.ConfigurationProvider;
+import net.md_5.bungee.config.YamlConfiguration;
+import rama.bungeeutils.authhook.getLastServer;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
 
 public final class BungeeUtilsBungeeCord extends Plugin {
 
@@ -12,7 +21,9 @@ public final class BungeeUtilsBungeeCord extends Plugin {
         getProxy().registerChannel("my:channel");
         getLogger().info( "Ha sido activado!" );
         plugin = this;
+        registerEvents();
         registerCommands();
+        registerConfig();
         ProxyServer.getInstance().getPluginManager().registerListener(this, new comandoMinas(this));
         ProxyServer.getInstance().getPluginManager().registerListener(this, new comandoNether(this));
         ProxyServer.getInstance().getPluginManager().registerListener(this, new comandoEnd(this));
@@ -33,8 +44,34 @@ public final class BungeeUtilsBungeeCord extends Plugin {
 
     }
 
+    public void registerEvents(){
+        ProxyServer.getInstance().getPluginManager().registerListener(this, new getLastServer(this));
+    }
+
     public static BungeeUtilsBungeeCord getPlugin(){
         return plugin;
+    }
+
+    public Configuration getConfig() throws IOException {
+        Configuration configuration = ConfigurationProvider.getProvider(YamlConfiguration.class).load(new File(getDataFolder(), "config.yml"));
+        return configuration;
+    }
+
+
+    public void registerConfig(){
+        if (!getDataFolder().exists())
+            getDataFolder().mkdir();
+
+        File file = new File(getDataFolder(), "config.yml");
+
+
+        if (!file.exists()) {
+            try (InputStream in = getResourceAsStream("config.yml")) {
+                Files.copy(in, file.toPath());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 }

@@ -4,9 +4,9 @@ config:
   server: #Set to minas OR villa
 
   #Comandos al ejecutar segundos después de transferir el servidor del jugador (/minas - /nether - /end)
-  minas_command: "warp minas %player%"
-  nether_command: "warp nether %player%"
-  end_command: "warp end %player%"
+  minas_command: "customwarps warp minas %player%"
+  nether_command: "customwarps warp nether %player%"
+  end_command: "customwarps warp dragon %player%"
   villa_command: "spawn %player%"
   parcelas_command: "p h"
 
