@@ -115,8 +115,6 @@ public final class BungeeUtilsSpigot extends JavaPlugin implements PluginMessage
                     public void run() {
                         if (!isInWorld) {
                             Bukkit.getServer().dispatchCommand(getServer().getConsoleSender(), minas_command.replaceAll("%player%", player.getName()));
-                            player.setWalkSpeed(0);
-
                             player.sendMessage(minas_lang);
                         } else {
                             getLogger().info(ChatColor.translateAlternateColorCodes('&', "&e[Debug] &7" + uuid + " &7no fue teletransportado ya que ya estaba en ese mundo (world) al desconectarse."));
