@@ -13,10 +13,7 @@ import net.md_5.bungee.config.YamlConfiguration;
 import net.md_5.bungee.event.EventHandler;
 import rama.bungeeutils.BungeeUtilsBungeeCord;
 
-import java.io.ByteArrayInputStream;
-import java.io.DataInputStream;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.UUID;
 
 
@@ -58,7 +55,7 @@ public class getLastServer implements Listener{
         }
     }
     @EventHandler
-    public void onPluginMessage(PluginMessageEvent e) {
+    public void onPluginMessage(PluginMessageEvent e) throws IOException {
 
         if (e.getReceiver() instanceof ProxiedPlayer) {
             ProxiedPlayer receiver = (ProxiedPlayer) e.getReceiver();
@@ -76,8 +73,8 @@ public class getLastServer implements Listener{
                         }
                     }
 
-                } catch (IOException ioException) {
-                    ioException.printStackTrace();
+                } catch (EOFException eof) {
+                    eof.printStackTrace();
                 }
             }
         }

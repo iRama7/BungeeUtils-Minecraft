@@ -15,6 +15,7 @@ import net.md_5.bungee.event.EventHandler;
 
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
+import java.io.EOFException;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.Map;
@@ -74,7 +75,7 @@ public class comandoEnd extends Command implements Listener {
     }
 
     @EventHandler
-    public void onPluginMessage(PluginMessageEvent e) {
+    public void onPluginMessage(PluginMessageEvent e) throws IOException {
 
         if (e.getReceiver() instanceof ProxiedPlayer) {
             ProxiedPlayer receiver = (ProxiedPlayer) e.getReceiver();
@@ -91,8 +92,8 @@ public class comandoEnd extends Command implements Listener {
                         }
                     }
 
-                } catch (IOException ioException) {
-                    ioException.printStackTrace();
+                } catch (EOFException eof) {
+                    eof.printStackTrace();
                 }
             }
         }
