@@ -8,6 +8,8 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.io.ByteArrayOutputStream;
+
 public class bukkitToBungee implements CommandExecutor {
 
     private BungeeUtilsSpigot plugin;
@@ -38,10 +40,11 @@ public class bukkitToBungee implements CommandExecutor {
     public void sendToBungee(String data, Player player) {
         String currentServer = plugin.getConfig().getString("config.server");
         if (currentServer.equalsIgnoreCase("villa")) {
-            ByteArrayDataOutput out = ByteStreams.newDataOutput();
+            ByteArrayOutputStream b = new ByteArrayOutputStream();
+            ByteArrayDataOutput out = ByteStreams.newDataOutput(b);
             out.writeUTF("spigotChannel");
             out.writeUTF(data);
-            player.sendPluginMessage(plugin, "BungeeCord", out.toByteArray());
+            player.sendPluginMessage(plugin, "BungeeCord", b.toByteArray());
         }
     }
 }

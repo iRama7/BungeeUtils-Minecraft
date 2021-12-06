@@ -85,6 +85,7 @@ public class comandoNether extends Command implements Listener {
                     String channel = in.readUTF();
                     String data = in.readUTF();
                     String[] args = new String[0];
+
                     if (channel.equalsIgnoreCase("spigotChannel")) {
                         if (data.equalsIgnoreCase("nether")) {
                             execute(receiver, args);
