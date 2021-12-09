@@ -47,7 +47,8 @@ public final class BungeeUtilsSpigot extends JavaPlugin implements PluginMessage
     @Override
     public void onDisable()
     {
-
+        this.getServer().getMessenger().unregisterOutgoingPluginChannel(this);
+        this.getServer().getMessenger().unregisterIncomingPluginChannel(this);
     }
 
     public void registrarErrores(){

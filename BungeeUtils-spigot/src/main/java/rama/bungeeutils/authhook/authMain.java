@@ -9,6 +9,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import rama.bungeeutils.BungeeUtilsSpigot;
 
+import java.io.ByteArrayOutputStream;
 import java.util.UUID;
 
 public class authMain implements Listener {
@@ -26,9 +27,10 @@ public class authMain implements Listener {
         sendToBungee(uuid, player);
     }
     public void sendToBungee(UUID uuid, Player player){
-            ByteArrayDataOutput out = ByteStreams.newDataOutput();
+        ByteArrayDataOutput out = ByteStreams.newDataOutput();
             out.writeUTF("authChannel");
             out.writeUTF(String.valueOf(uuid));
+            out.writeUTF((player.getName()));
             player.sendPluginMessage(plugin, "BungeeCord", out.toByteArray());
     }
 }

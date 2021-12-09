@@ -57,19 +57,18 @@ public class getLastServer implements Listener{
     @EventHandler
     public void onPluginMessage(PluginMessageEvent e) throws IOException {
 
-        if (e.getReceiver() instanceof ProxiedPlayer) {
-            ProxiedPlayer receiver = (ProxiedPlayer) e.getReceiver();
-
             if (e.getTag().equalsIgnoreCase("BungeeCord")) {
                 DataInputStream in = new DataInputStream(new ByteArrayInputStream((e.getData())));
                 try {
                     String channel = in.readUTF();
-                    String uuid = in.readUTF();
-                    Configuration config = plugin.getConfig();
                     if (channel.equalsIgnoreCase("authChannel")) {
+                    String uuid = in.readUTF();
+                    String player_name = in.readUTF();
+                    ProxiedPlayer player = ProxyServer.getInstance().getPlayer(player_name);
+                    Configuration config = plugin.getConfig();
                         Boolean lastServerIsMinas = config.getBoolean(uuid+".minas");
                         if(lastServerIsMinas){
-                            receiver.connect(ProxyServer.getInstance().getServerInfo("minas"));
+                            player.connect(ProxyServer.getInstance().getServerInfo("minas"));
                         }
                     }
 
@@ -79,4 +78,4 @@ public class getLastServer implements Listener{
             }
         }
     }
-}
+

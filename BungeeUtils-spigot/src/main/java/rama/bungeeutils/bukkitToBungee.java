@@ -25,26 +25,31 @@ public class bukkitToBungee implements CommandExecutor {
         }else{
             if(args[0].equalsIgnoreCase("minas")){
                 String data = "minas";
-                sendToBungee(data, ((Player) sender).getPlayer());
+                sendToBungee(data, sender.getName());
             }else if (args[0].equalsIgnoreCase("nether")){
                 String data = "nether";
-                sendToBungee(data, ((Player) sender).getPlayer());
+                sendToBungee(data, sender.getName());
             }else if(args[0].equalsIgnoreCase("dragon")){
                 String data = "dragon";
-                sendToBungee(data, ((Player) sender).getPlayer());
+                sendToBungee(data, sender.getName());
             }
         }
 
      return false;
     }
-    public void sendToBungee(String data, Player player) {
+    public void sendToBungee(String data, String player_name) {
         String currentServer = plugin.getConfig().getString("config.server");
+        assert currentServer != null;
         if (currentServer.equalsIgnoreCase("villa")) {
-            ByteArrayOutputStream b = new ByteArrayOutputStream();
-            ByteArrayDataOutput out = ByteStreams.newDataOutput(b);
-            out.writeUTF("spigotChannel");
-            out.writeUTF(data);
-            player.sendPluginMessage(plugin, "BungeeCord", b.toByteArray());
+            ByteArrayDataOutput out = ByteStreams.newDataOutput();
+            try {
+                out.writeUTF("spigotChannel");
+                out.writeUTF(data);
+                out.writeUTF(player_name);
+                plugin.getServer().sendPluginMessage(plugin, "BungeeCord", out.toByteArray());
+            } finally {
+
+            }
         }
     }
 }

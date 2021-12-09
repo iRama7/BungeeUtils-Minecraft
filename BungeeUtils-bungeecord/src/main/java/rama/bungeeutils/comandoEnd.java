@@ -1,5 +1,6 @@
 package rama.bungeeutils;
 
+import com.google.common.io.ByteArrayDataInput;
 import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
 import net.md_5.bungee.api.ChatColor;
@@ -13,10 +14,6 @@ import net.md_5.bungee.api.plugin.Command;
 import net.md_5.bungee.api.plugin.Listener;
 import net.md_5.bungee.event.EventHandler;
 
-import java.io.ByteArrayInputStream;
-import java.io.DataInputStream;
-import java.io.EOFException;
-import java.io.IOException;
 import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -29,7 +26,7 @@ public class comandoEnd extends Command implements Listener {
         super("dragon", "comando.dragon");
     }
 
-    @Override
+
     public void execute(CommandSender sender, String[] args) {
         if((sender instanceof ProxiedPlayer)){
             ProxiedPlayer player = (ProxiedPlayer)sender;
@@ -75,30 +72,32 @@ public class comandoEnd extends Command implements Listener {
     }
 
     @EventHandler
-    public void onPluginMessage(PluginMessageEvent e) throws IOException {
-
-        if (e.getReceiver() instanceof ProxiedPlayer) {
-            ProxiedPlayer receiver = (ProxiedPlayer) e.getReceiver();
+    public void onPluginMessage(PluginMessageEvent e){
 
             if (e.getTag().equalsIgnoreCase("BungeeCord")) {
-                DataInputStream in = new DataInputStream(new ByteArrayInputStream((e.getData())));
-                try {
+                ByteArrayDataInput in = ByteStreams.newDataInput(e.getData());
+                try{
                     String channel = in.readUTF();
-                    String data = in.readUTF();
-                    String[] args = new String[0];
                     if (channel.equalsIgnoreCase("spigotChannel")) {
+                    String data = in.readUTF();
+                    String player_name = in.readUTF();
+                    ProxiedPlayer player = ProxyServer.getInstance().getPlayer(player_name);
+
+                    String[] args = new String[0];
                         if (data.equalsIgnoreCase("dragon")) {
-                            execute(receiver, args);
+                            execute(player, args);
                         }
                     }
-
-                } catch (EOFException eof) {
-                    eof.printStackTrace();
+                } catch (Exception exception) {
+                    exception.printStackTrace();
                 }
+
+            }
+
             }
         }
-    }
 
 
-}
+
+
 

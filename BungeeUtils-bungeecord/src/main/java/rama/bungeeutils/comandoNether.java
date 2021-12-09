@@ -76,19 +76,19 @@ public class comandoNether extends Command implements Listener {
     @EventHandler
     public void onPluginMessage(PluginMessageEvent e) throws IOException {
 
-        if (e.getReceiver() instanceof ProxiedPlayer) {
-            ProxiedPlayer receiver = (ProxiedPlayer) e.getReceiver();
 
             if (e.getTag().equalsIgnoreCase("BungeeCord")) {
                 DataInputStream in = new DataInputStream(new ByteArrayInputStream((e.getData())));
                 try {
                     String channel = in.readUTF();
+                    if (channel.equalsIgnoreCase("spigotChannel")) {
                     String data = in.readUTF();
                     String[] args = new String[0];
+                        String player_name = in.readUTF();
+                        ProxiedPlayer player = ProxyServer.getInstance().getPlayer(player_name);
 
-                    if (channel.equalsIgnoreCase("spigotChannel")) {
                         if (data.equalsIgnoreCase("nether")) {
-                            execute(receiver, args);
+                            execute(player, args);
                         }
                     }
 
@@ -100,5 +100,5 @@ public class comandoNether extends Command implements Listener {
     }
 
 
-}
+
 
