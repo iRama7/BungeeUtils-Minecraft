@@ -80,7 +80,6 @@ public final class BungeeUtilsSpigot extends JavaPlugin implements PluginMessage
 
 
         if (!channel.equalsIgnoreCase("my:channel")) {
-            this.getLogger().info("Debug");
             return;
         }
         ByteArrayDataInput in = ByteStreams.newDataInput(bytes);

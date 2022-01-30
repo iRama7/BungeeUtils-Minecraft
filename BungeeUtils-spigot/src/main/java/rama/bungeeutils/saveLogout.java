@@ -32,8 +32,12 @@ public class saveLogout implements Listener {
         Boolean saveLogoutIsEnabled = config.getBoolean("config.save_logout_world");
 
         if (saveLogoutIsEnabled) {
-            Database.set(playerUUIDString + "." + prevWorldName, false);
-            Database.set(playerUUIDString + "." + newWorldName, true);
+            if(newWorldName.equalsIgnoreCase("world_the_end")){
+                Database.set(playerUUIDString + "." + newWorldName, false);
+            }else{
+                Database.set(playerUUIDString + "." + prevWorldName, false);
+                Database.set(playerUUIDString + "." + newWorldName, true);
+            }
             try {
                 Database.save(DatabaseFile);
             } catch (IOException ex) {

@@ -19,7 +19,6 @@ public final class BungeeUtilsBungeeCord extends Plugin {
     @Override
     public void onEnable() {
         getProxy().registerChannel("my:channel");
-        getLogger().info( "Ha sido activado!" );
         plugin = this;
         registerEvents();
         registerCommands();
@@ -27,6 +26,7 @@ public final class BungeeUtilsBungeeCord extends Plugin {
         ProxyServer.getInstance().getPluginManager().registerListener(this, new comandoMinas(this));
         ProxyServer.getInstance().getPluginManager().registerListener(this, new comandoNether(this));
         ProxyServer.getInstance().getPluginManager().registerListener(this, new comandoEnd(this));
+        getLogger().info("Ha sido activado!" );
     }
 
     @Override
