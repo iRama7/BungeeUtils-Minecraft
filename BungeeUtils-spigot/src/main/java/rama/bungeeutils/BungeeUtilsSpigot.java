@@ -98,7 +98,6 @@ public final class BungeeUtilsSpigot extends JavaPlugin implements PluginMessage
 
             Boolean isInWorld = Database.getBoolean(playerUUIDString + ".world");
             Boolean isInWorld_nether = Database.getBoolean(playerUUIDString + ".world_nether");
-            Boolean isInWorld_the_end = Database.getBoolean(playerUUIDString + ".world_the_end");
 
             if (data1.equalsIgnoreCase("sameServer_to_world")) {
                 Bukkit.getServer().dispatchCommand(getServer().getConsoleSender(), minas_command.replaceAll("%player%", player.getName()));
@@ -137,12 +136,8 @@ public final class BungeeUtilsSpigot extends JavaPlugin implements PluginMessage
                 Bukkit.getScheduler().runTaskLater(this, new Runnable() {
                     @Override
                     public void run() {
-                        if (!isInWorld_the_end) {
                             Bukkit.getServer().dispatchCommand(getServer().getConsoleSender(), end_command.replaceAll("%player%", player.getName()));
                             player.sendMessage(end_lang);
-                        } else {
-                            getLogger().info(ChatColor.translateAlternateColorCodes('&', "&e[Debug] &7" + uuid + " &7no fue teletransportado ya que ya estaba en ese mundo (world_the_end) al desconectarse."));
-                        }
                     }
                 }, 5);
             }
