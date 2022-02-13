@@ -2,8 +2,12 @@ package rama.bungeeutils;
 
 import com.google.common.io.ByteArrayDataInput;
 import com.google.common.io.ByteStreams;
+import com.plotsquared.core.PlotAPI;
+import com.plotsquared.core.player.PlotPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -15,6 +19,9 @@ import rama.bungeeutils.authhook.authMain;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.UUID;
 
 public final class BungeeUtilsSpigot extends JavaPlugin implements PluginMessageListener {
@@ -24,25 +31,24 @@ public final class BungeeUtilsSpigot extends JavaPlugin implements PluginMessage
     private File DatabaseFile = null;
 
 
+
     @Override
-    public void onEnable()
-    {
-        if ( !getServer().getPluginManager().isPluginEnabled( this ) )
-        {
+    public void onEnable() {
+        if (!getServer().getPluginManager().isPluginEnabled(this)) {
             return;
         }
-        getServer().getMessenger().registerIncomingPluginChannel( this, "my:channel", this);
+        getServer().getMessenger().registerIncomingPluginChannel(this, "my:channel", this);
         getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
-        getLogger().info( "enabled successfully." );
+        getLogger().info("enabled successfully.");
         registrarConfig();
         registrarComandos();
         createDatabase();
         registrarEventos();
         registrarErrores();
-
-
-
     }
+
+
+
 
     @Override
     public void onDisable()
@@ -62,6 +68,8 @@ public final class BungeeUtilsSpigot extends JavaPlugin implements PluginMessage
 
     @Override
     public void onPluginMessageReceived(String channel, Player unused, byte[] bytes) {
+
+
 
         FileConfiguration config = this.getConfig();
         String minas_lang = ChatColor.translateAlternateColorCodes('&', config.getString("lang.minas_lang"));
@@ -137,7 +145,21 @@ public final class BungeeUtilsSpigot extends JavaPlugin implements PluginMessage
                     @Override
                     public void run() {
                             Bukkit.getServer().dispatchCommand(getServer().getConsoleSender(), end_command.replaceAll("%player%", player.getName()));
+
+                        Double x = 1.5;
+                        Double y = 1.5;
+                        Double z = 1.5;
+                        float pitch = 1;
+                        float yaw = 1;
+                        String worldName = "world_the_end";
+                        World world = Bukkit.getWorld(worldName);
+                        Location warpLoc = new Location(world, x, y, z, yaw, pitch);
+
+
+                        if(warpLoc.isWorldLoaded()) {
+
                             player.sendMessage(end_lang);
+                        }
                     }
                 }, 5);
             }
@@ -160,8 +182,26 @@ public final class BungeeUtilsSpigot extends JavaPlugin implements PluginMessage
                 Bukkit.getServer().dispatchCommand(getServer().getConsoleSender(), villa_command.replaceAll("%player%", player.getName()));
                 player.sendMessage(villa_lang);
             }else if(data1.equalsIgnoreCase("sameServer2_to_parcelas")){
-                player.performCommand(parcelas_command);
-                player.sendMessage(parcelas_lang);
+                PlotAPI api = new PlotAPI();
+                api.registerListener(this);
+
+                PlotPlayer plotPlayer = api.wrapPlayer(playerUUID);
+                int plotCount = plotPlayer.getPlotCount();
+                if(plotCount == 0){
+
+                    double x = -54.5;
+                    double y = 60;
+                    double z = -54.5;
+                    float pitch = 5;
+                    float yaw = -44;
+                    World w = Bukkit.getWorld("mundo_parcelas");
+                    Location loc = new Location(w, x, y, z, pitch, yaw);
+                    player.teleport(loc);
+                }else {
+
+                    player.performCommand(parcelas_command);
+                    player.sendMessage(parcelas_lang);
+                }
             }else if(data1.equalsIgnoreCase("villa")) {
                 Bukkit.getScheduler().runTaskLater(this, new Runnable() {
                     @Override
@@ -179,13 +219,36 @@ public final class BungeeUtilsSpigot extends JavaPlugin implements PluginMessage
                     @Override
                     public void run() {
                         if (!isInParcelas) {
-                            player.performCommand(parcelas_command);
-                            player.sendMessage(parcelas_lang);
+                            PlotAPI api = new PlotAPI();
+                            api.registerListener(this);
+
+                            PlotPlayer plotPlayer = api.wrapPlayer(playerUUID);
+                            int plotCount = plotPlayer.getPlotCount();
+                            if(plotCount == 0){
+
+                                double x = -54.5;
+                                double y = 60;
+                                double z = -54.5;
+                                float pitch = 5;
+                                float yaw = -44;
+                                World w = Bukkit.getWorld("mundo_parcelas");
+                                Location loc = new Location(w, x, y, z, pitch, yaw);
+                                player.teleport(loc);
+                            }else {
+                                player.performCommand(parcelas_command);
+                                player.sendMessage(parcelas_lang);
+                            }
                         } else {
                             getLogger().info(ChatColor.translateAlternateColorCodes('&', "&e[Debug] &7" + uuid + " &7no fue teletransportado ya que ya estaba en ese mundo (mundo_parcelas) al desconectarse."));
                         }
                     }
                 }, 5);
+            }
+        }else if(subChannel.equalsIgnoreCase("BungeeChannel")){
+            String data1 = in.readUTF();
+            String player_name = in.readUTF();
+            if(data1.equalsIgnoreCase("JoinEvent")){
+                Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', "&a▲ &7"+player_name));
             }
         }
     }

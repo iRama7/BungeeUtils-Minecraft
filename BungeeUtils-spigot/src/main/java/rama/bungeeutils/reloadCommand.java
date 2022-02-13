@@ -1,5 +1,6 @@
 package rama.bungeeutils;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -24,19 +25,18 @@ public class reloadCommand implements CommandExecutor {
         File config = new File(plugin.getDataFolder(), "config.yml");
         if(args.length == 0){
             sender.sendMessage(ChatColor.translateAlternateColorCodes('&', prefix+" &eUtiliza &e&o/bungeeutils reload &epara recargar la configuración."));
-        }else if(args[0].equalsIgnoreCase("reload")){
-            if(!config.exists()){
+        }else if(args[0].equalsIgnoreCase("reload")) {
+            if (!config.exists()) {
                 plugin.getConfig().options().copyDefaults(true);
                 plugin.saveDefaultConfig();
-                sender.sendMessage(ChatColor.translateAlternateColorCodes('&', prefix+" &eSe ha creado el archivo de configuración desde 0 correctamente."));
-            }else{
+                sender.sendMessage(ChatColor.translateAlternateColorCodes('&', prefix + " &eSe ha creado el archivo de configuración desde 0 correctamente."));
+            } else {
                 plugin.reloadConfig();
-                sender.sendMessage(ChatColor.translateAlternateColorCodes('&', prefix+" &eSe ha recargado el archivo de configuración correctamente."));
+                sender.sendMessage(ChatColor.translateAlternateColorCodes('&', prefix + " &eSe ha recargado el archivo de configuración correctamente."));
             }
+
+
         }
-
-
-
 
         return false;
     }

@@ -33,6 +33,7 @@ public class saveLogout implements Listener {
 
         if (saveLogoutIsEnabled) {
             if(newWorldName.equalsIgnoreCase("world_the_end")){
+                Database.set(playerUUIDString + "." + prevWorldName, false);
                 Database.set(playerUUIDString + "." + newWorldName, false);
             }else{
                 Database.set(playerUUIDString + "." + prevWorldName, false);

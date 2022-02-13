@@ -19,3 +19,4 @@ lang:
   end_lang: "&7Has sido teletransportado al &eEnd &7correctamente."
   villa_lang: "&7Has sido teletransportado al &6Spawn &7correctamente."
   parcelas_lang: "&7Has sido teletransportado a las &3Parcelas &7correctamente"
+  join_message: "&a▲ &7%PLAYER%"
