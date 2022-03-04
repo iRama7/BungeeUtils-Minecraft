@@ -9,7 +9,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import rama.bungeeutils.BungeeUtilsSpigot;
 
-import java.io.ByteArrayOutputStream;
 import java.util.UUID;
 
 public class authMain implements Listener {

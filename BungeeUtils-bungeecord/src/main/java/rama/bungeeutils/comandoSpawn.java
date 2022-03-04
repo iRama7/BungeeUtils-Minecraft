@@ -9,12 +9,14 @@ import net.md_5.bungee.api.config.ServerInfo;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.connection.Server;
 import net.md_5.bungee.api.plugin.Command;
+import rama.bungeeutils.combatCheck.sendCombatCheck;
 
 import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import static rama.bungeeutils.BungeeUtilsBungeeCord.plugin;
+import static rama.bungeeutils.combatCheck.readCombatCheck.checkStatus;
 
 public class comandoSpawn extends Command {
     public comandoSpawn(BungeeUtilsBungeeCord bungeeUtilsBungeeCord) {
@@ -35,8 +37,16 @@ public class comandoSpawn extends Command {
             if(playerServer.getInfo().getName().equalsIgnoreCase("villa")){
                 sendCustomData(data2, playerName, channel);
             }else {
-                sendCustomData(data1, playerName, channel);
-                player.connect(ProxyServer.getInstance().getServerInfo("villa"));
+                sendCombatCheck.sendCombatCheck(playerName);
+                plugin.getProxy().getScheduler().schedule(plugin, new Runnable() {
+                    @Override
+                    public void run() {
+                        if(checkStatus.equalsIgnoreCase("false")){
+                            sendCustomData(data1, playerName, channel);
+                            player.connect(ProxyServer.getInstance().getServerInfo("villa"));
+                        }
+                    }
+                }, 1, TimeUnit.SECONDS);
             }
 
         }

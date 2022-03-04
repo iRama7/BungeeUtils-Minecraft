@@ -18,38 +18,44 @@ import java.util.concurrent.TimeUnit;
 import static rama.bungeeutils.BungeeUtilsBungeeCord.plugin;
 import static rama.bungeeutils.combatCheck.readCombatCheck.checkStatus;
 
-public class comandoParcelas extends Command {
-    public comandoParcelas(BungeeUtilsBungeeCord bungeeUtilsBungeeCord) {
-        super("parcelas", "comando.parcelas");
+public class comandoPH extends Command {
+
+    public comandoPH(BungeeUtilsBungeeCord bungeeUtilsBungeeCord) {
+        super("p", "comando.parcelas");
     }
 
     @Override
     public void execute(CommandSender sender, String[] args) {
-        if((sender instanceof ProxiedPlayer)){
-            ProxiedPlayer player = (ProxiedPlayer)sender;
 
-            String playerName = ((ProxiedPlayer) sender).getDisplayName();
+        if (args[0].equalsIgnoreCase("h")) {
 
-            String data1 = "parcelas";
-            String data2 = "sameServer2_to_parcelas";
-            String channel = "survivalChannel";
-            Server playerServer = player.getServer();
-            if(playerServer.getInfo().getName().equalsIgnoreCase("villa")){
-                sendCustomData(data2, playerName, channel);
-            }else {
-                sendCombatCheck.sendCombatCheck(playerName);
-                plugin.getProxy().getScheduler().schedule(plugin, new Runnable() {
-                    @Override
-                    public void run() {
-                        if(checkStatus.equalsIgnoreCase("false")){
-                            sendCustomData(data1, playerName, channel);
-                            player.connect(ProxyServer.getInstance().getServerInfo("villa"));
+
+            if ((sender instanceof ProxiedPlayer)) {
+                ProxiedPlayer player = (ProxiedPlayer) sender;
+
+                String playerName = ((ProxiedPlayer) sender).getDisplayName();
+
+                String data1 = "parcelas";
+                String data2 = "sameServer2_to_parcelas";
+                String channel = "survivalChannel";
+                Server playerServer = player.getServer();
+                if (playerServer.getInfo().getName().equalsIgnoreCase("villa")) {
+                    sendCustomData(data2, playerName, channel);
+                }else {
+                    sendCombatCheck.sendCombatCheck(playerName);
+                    plugin.getProxy().getScheduler().schedule(plugin, new Runnable() {
+                        @Override
+                        public void run() {
+                            if(checkStatus.equalsIgnoreCase("false")){
+                                sendCustomData(data1, playerName, channel);
+                                player.connect(ProxyServer.getInstance().getServerInfo("villa"));
+                            }
                         }
-                    }
-                }, 1, TimeUnit.SECONDS);
-            }
+                    }, 1, TimeUnit.SECONDS);
+                }
 
-        }
+            }
+        }return;
     }
 
     public void sendCustomData(String data1, String playerName, String channel){

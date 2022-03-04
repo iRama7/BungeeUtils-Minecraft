@@ -4,6 +4,7 @@ import com.google.common.io.ByteArrayDataInput;
 import com.google.common.io.ByteStreams;
 import com.plotsquared.core.PlotAPI;
 import com.plotsquared.core.player.PlotPlayer;
+import nl.marido.deluxecombat.api.DeluxeCombatAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -16,12 +17,10 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.plugin.messaging.PluginMessageListener;
 import rama.bungeeutils.authhook.authMain;
+import rama.bungeeutils.combatCheck.listenForCheck;
 
 import java.io.File;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 import java.util.UUID;
 
 public final class BungeeUtilsSpigot extends JavaPlugin implements PluginMessageListener {
@@ -29,7 +28,7 @@ public final class BungeeUtilsSpigot extends JavaPlugin implements PluginMessage
     public String rutaConfig;
     private FileConfiguration Database = null;
     private File DatabaseFile = null;
-
+    public static BungeeUtilsSpigot plugin;
 
 
     @Override
@@ -38,13 +37,15 @@ public final class BungeeUtilsSpigot extends JavaPlugin implements PluginMessage
             return;
         }
         getServer().getMessenger().registerIncomingPluginChannel(this, "my:channel", this);
+        getServer().getMessenger().registerIncomingPluginChannel(this, "my:channel", new listenForCheck());
         getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
-        getLogger().info("enabled successfully.");
         registrarConfig();
         registrarComandos();
         createDatabase();
-        registrarEventos();
         registrarErrores();
+        registrarEventos();
+        plugin = this;
+
     }
 
 
@@ -68,6 +69,8 @@ public final class BungeeUtilsSpigot extends JavaPlugin implements PluginMessage
 
     @Override
     public void onPluginMessageReceived(String channel, Player unused, byte[] bytes) {
+
+
 
 
 
@@ -98,6 +101,12 @@ public final class BungeeUtilsSpigot extends JavaPlugin implements PluginMessage
 
             FileConfiguration Database = this.getDatabase();
             Player player = Bukkit.getServer().getPlayer(uuid);
+
+            DeluxeCombatAPI dc_api = new DeluxeCombatAPI();
+            if(dc_api.isInCombat(player)){
+                return;
+            }
+
             if(player == null){
                 return;
             }
@@ -164,11 +173,19 @@ public final class BungeeUtilsSpigot extends JavaPlugin implements PluginMessage
                 }, 5);
             }
         } else if (subChannel.equalsIgnoreCase("survivalChannel")) {
+
+
             String data1 = in.readUTF();
             String uuid = in.readUTF();
 
             FileConfiguration Database = this.getDatabase();
             Player player = Bukkit.getServer().getPlayer(uuid);
+
+            DeluxeCombatAPI dc_api = new DeluxeCombatAPI();
+            if(dc_api.isInCombat(player)){
+                return;
+            }
+
             if(player == null){
                 return;
             }
@@ -259,17 +276,20 @@ public final class BungeeUtilsSpigot extends JavaPlugin implements PluginMessage
             this.getConfig().options().copyDefaults(true);
             saveDefaultConfig();
         }
+        Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&c&lBUNGEEUTILS &6Registrando configuración..."));
     }
 
     public void registrarComandos(){
         this.getCommand("bungeeutils").setExecutor(new reloadCommand(this));
         this.getCommand("bungee-utils").setExecutor(new bukkitToBungee(this));
+        Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&c&lBUNGEEUTILS &6Registrando comandos..."));
     }
     public void registrarEventos(){
         PluginManager pm = getServer().getPluginManager();
         pm.registerEvents(new databaseConstructor(this), this);
         pm.registerEvents(new saveLogout(this),this);
         pm.registerEvents(new authMain(this), this);
+        Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&c&lBUNGEEUTILS &6Registrando eventos..."));
     }
 
     public FileConfiguration getDatabase(){

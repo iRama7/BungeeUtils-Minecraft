@@ -6,6 +6,7 @@ import net.md_5.bungee.config.Configuration;
 import net.md_5.bungee.config.ConfigurationProvider;
 import net.md_5.bungee.config.YamlConfiguration;
 import rama.bungeeutils.authhook.getLastServer;
+import rama.bungeeutils.combatCheck.readCombatCheck;
 
 import java.io.File;
 import java.io.IOException;
@@ -27,7 +28,7 @@ public final class BungeeUtilsBungeeCord extends Plugin {
         ProxyServer.getInstance().getPluginManager().registerListener(this, new comandoNether(this));
         ProxyServer.getInstance().getPluginManager().registerListener(this, new comandoEnd(this));
         ProxyServer.getInstance().getPluginManager().registerListener(this, new PlayerJoinMessage());
-        getLogger().info("Ha sido activado!" );
+        ProxyServer.getInstance().getPluginManager().registerListener(this, new readCombatCheck());
     }
 
     @Override
@@ -42,6 +43,7 @@ public final class BungeeUtilsBungeeCord extends Plugin {
         ProxyServer.getInstance().getPluginManager().registerCommand(this, new comandoEnd(this));
         ProxyServer.getInstance().getPluginManager().registerCommand(this, new comandoSpawn(this));
         ProxyServer.getInstance().getPluginManager().registerCommand(this, new comandoParcelas(this));
+        ProxyServer.getInstance().getPluginManager().registerCommand(this, new comandoPH(this));
 
     }
 
