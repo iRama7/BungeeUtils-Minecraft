@@ -20,7 +20,7 @@ import static rama.bungeeutils.combatCheck.readCombatCheck.checkStatus;
 
 public class comandoSpawn extends Command {
     public comandoSpawn(BungeeUtilsBungeeCord bungeeUtilsBungeeCord) {
-        super("villa");
+        super("villa", "", "spawn");
     }
 
     @Override

@@ -1,5 +1,6 @@
 package rama.bungeeutils;
 
+import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.plugin.Plugin;
 import net.md_5.bungee.config.Configuration;
@@ -24,11 +25,6 @@ public final class BungeeUtilsBungeeCord extends Plugin {
         registerEvents();
         registerCommands();
         registerConfig();
-        ProxyServer.getInstance().getPluginManager().registerListener(this, new comandoMinas(this));
-        ProxyServer.getInstance().getPluginManager().registerListener(this, new comandoNether(this));
-        ProxyServer.getInstance().getPluginManager().registerListener(this, new comandoEnd(this));
-        ProxyServer.getInstance().getPluginManager().registerListener(this, new PlayerJoinMessage());
-        ProxyServer.getInstance().getPluginManager().registerListener(this, new readCombatCheck());
     }
 
     @Override
@@ -38,6 +34,7 @@ public final class BungeeUtilsBungeeCord extends Plugin {
 
 
     public void registerCommands(){
+        getProxy().getConsole().sendMessage(ChatColor.translateAlternateColorCodes('&', "&c(BUNGEEUTILS) &6Registrando comandos..."));
         ProxyServer.getInstance().getPluginManager().registerCommand(this, new comandoMinas(this));
         ProxyServer.getInstance().getPluginManager().registerCommand(this, new comandoNether(this));
         ProxyServer.getInstance().getPluginManager().registerCommand(this, new comandoEnd(this));
@@ -48,7 +45,13 @@ public final class BungeeUtilsBungeeCord extends Plugin {
     }
 
     public void registerEvents(){
+        getProxy().getConsole().sendMessage(ChatColor.translateAlternateColorCodes('&', "&c(BUNGEEUTILS) &6Registrando eventos..."));
         ProxyServer.getInstance().getPluginManager().registerListener(this, new getLastServer(this));
+        ProxyServer.getInstance().getPluginManager().registerListener(this, new comandoMinas(this));
+        ProxyServer.getInstance().getPluginManager().registerListener(this, new comandoNether(this));
+        ProxyServer.getInstance().getPluginManager().registerListener(this, new comandoEnd(this));
+        ProxyServer.getInstance().getPluginManager().registerListener(this, new PlayerJoinMessage());
+        ProxyServer.getInstance().getPluginManager().registerListener(this, new readCombatCheck());
     }
 
     public static BungeeUtilsBungeeCord getPlugin(){
@@ -62,6 +65,7 @@ public final class BungeeUtilsBungeeCord extends Plugin {
 
 
     public void registerConfig(){
+        getProxy().getConsole().sendMessage(ChatColor.translateAlternateColorCodes('&', "&c(BUNGEEUTILS) &6Registrando configuración..."));
         if (!getDataFolder().exists())
             getDataFolder().mkdir();
 

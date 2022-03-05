@@ -276,20 +276,20 @@ public final class BungeeUtilsSpigot extends JavaPlugin implements PluginMessage
             this.getConfig().options().copyDefaults(true);
             saveDefaultConfig();
         }
-        Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&c&lBUNGEEUTILS &6Registrando configuración..."));
+        Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&c(BUNGEEUTILS) &6Registrando configuración..."));
     }
 
     public void registrarComandos(){
         this.getCommand("bungeeutils").setExecutor(new reloadCommand(this));
         this.getCommand("bungee-utils").setExecutor(new bukkitToBungee(this));
-        Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&c&lBUNGEEUTILS &6Registrando comandos..."));
+        Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&c(BUNGEEUTILS) &6Registrando comandos..."));
     }
     public void registrarEventos(){
         PluginManager pm = getServer().getPluginManager();
         pm.registerEvents(new databaseConstructor(this), this);
         pm.registerEvents(new saveLogout(this),this);
         pm.registerEvents(new authMain(this), this);
-        Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&c&lBUNGEEUTILS &6Registrando eventos..."));
+        Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&c(BUNGEEUTILS) &6Registrando eventos..."));
     }
 
     public FileConfiguration getDatabase(){
@@ -298,9 +298,7 @@ public final class BungeeUtilsSpigot extends JavaPlugin implements PluginMessage
     public File getDatabaseFile(){
         return this.DatabaseFile;
     }
-    public void reloadDatabase(){
 
-    }
     private void createDatabase(){
         DatabaseFile = new File(getDataFolder(), "database.yml");
         if(!DatabaseFile.exists()){

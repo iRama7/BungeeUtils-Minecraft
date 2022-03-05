@@ -19,16 +19,13 @@ public class listenForCheck implements PluginMessageListener {
         String subChannel = in.readUTF();
         if(subChannel.equalsIgnoreCase("CombatCheckChannel")){
             String player_name = in.readUTF();
-            Bukkit.getLogger().info("Listened for check for player "+player_name);
 
             Player player = Bukkit.getServer().getPlayer(player_name);
             DeluxeCombatAPI api = new DeluxeCombatAPI();
             if(api.isInCombat(player)){
-                Bukkit.getLogger().info(String.valueOf(api.isInCombat(player)));
                 player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&cNo puedes viajar en combate"));
                 sendBackCheckStatus.sendBackCheckStatus(String.valueOf(api.isInCombat(player)));
             }else{
-                Bukkit.getLogger().info(String.valueOf(api.isInCombat(player)));
                 sendBackCheckStatus.sendBackCheckStatus(String.valueOf(api.isInCombat(player)));
             }
         }
